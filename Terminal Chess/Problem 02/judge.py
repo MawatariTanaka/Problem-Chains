@@ -58,12 +58,12 @@ def test(total_number_of_tests, number_of_subtests, submitted_function, conditio
     else:
         print(f'{total_correct} of {total_number_of_tests} tests passed.')
 
-def condition_func_problem_01(test_func, case):
+def condition_func_problem_02(test_func, case):
     return test_func(*case[0]) == case[1]
 
 def generate_test_cases(n):
-    test_case_list = [((1, 1, 1, 1, 1, 1), 0), ((10**9, 10**9, 10**9, 10**9, 10**9, 10**9), 0), ((10**9, 10**9, 10**9, 10**9, 1, 1), 10**9 - 1), ((10**9, 10**9, 1, 1, 10**9, 10**9), 10**9 - 1), ((10**9, 10**9, 500000000, 500000000, 500000001, 500000001), 1)]
-    test_case_list += [((M:=random.randint(1,10**9),N:=random.randint(1,10**9),x1:=random.randint(1,M),y1:=random.randint(1,N),x2:=random.randint(1,M),y2:=random.randint(1,N)),max(abs(x2-x1),abs(y2-y1))) for _ in range(n-len(test_case_list))]
-    return test_case_list
+    test_case=[((1,1,1,1,1,1),0),((10**9,10**9,10**9,10**9,10**9,10**9),0),((10**9,10**9,10**9,10**9,1,10**9),1),((10**9,10**9,10**9,10**9,10**9,1),1),((10**9,10**9,10**9,10**9,1,1),2),((5,5,5,5,5,5),0),((5,5,5,5,3,3),2),((5,5,5,5,3,5),1),((5,5,5,5,5,3),1),((5,5,5,5,1,1),2),((3*7*11*13*17*19*23*29*31*37+1,3*7*11*13*17*19*23*29*31*37+2,3*7*11*13*17*19*23*29*31+3, 3*7*11*13*17*19+4,3+5,7+6),2)]
+    test_case+=[((M:=random.randint(1,10**9),N:=random.randint(1,10**9),x1:=random.randint(1,M),y1:=random.randint(1,N),x2:=random.randint(1,M),y2:=random.randint(1,N)),0 if x1==x2 and y1==y2 else 1 if x1==x2 or y1==y2 else 2) for _ in range(n-11)]
+    return test_case
 
-test(10, 1000, get_minimum_move, condition_func_problem_01)
+test(10, 1000, get_minimum_move, condition_func_problem_02)

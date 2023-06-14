@@ -1,4 +1,4 @@
-from submission import get_minimum_move
+from submission import min_moves_bishop
 from os import system, name
 import threading
 import random
@@ -58,12 +58,12 @@ def test(total_number_of_tests, number_of_subtests, submitted_function, conditio
     else:
         print(f'{total_correct} of {total_number_of_tests} tests passed.')
 
-def condition_func_problem_01(test_func, case):
+def condition_func_problem_04(test_func, case):
     return test_func(*case[0]) == case[1]
 
 def generate_test_cases(n):
-    test_case_list = [((1, 1, 1, 1, 1, 1), 0), ((10**9, 10**9, 10**9, 10**9, 10**9, 10**9), 0), ((10**9, 10**9, 10**9, 10**9, 1, 1), 10**9 - 1), ((10**9, 10**9, 1, 1, 10**9, 10**9), 10**9 - 1), ((10**9, 10**9, 500000000, 500000000, 500000001, 500000001), 1)]
-    test_case_list += [((M:=random.randint(1,10**9),N:=random.randint(1,10**9),x1:=random.randint(1,M),y1:=random.randint(1,N),x2:=random.randint(1,M),y2:=random.randint(1,N)),max(abs(x2-x1),abs(y2-y1))) for _ in range(n-len(test_case_list))]
-    return test_case_list
+    test_cases = [((1, 1, 1, 1, 1, 1), 0), ((2, 2, 1, 1, 2, 2), 1), ((2, 2, 1, 1, 1, 2), -1), ((2, 2, 1, 2, 2, 1), 1), ((10**9, 10**9, 1, 1, 10**9, 10**9), 1), ((10**9, 10**9, 1, 1, 10**9, 10**9 - 1), -1), ((10**9, 10**9, 1, 1, 10**9 - 1, 10**9), -1), ((10**9, 10**9, 1, 10**9, 10**9, 1), 1), ((10**9, 10**9, 10**9, 1, 1, 10**9), 1), ((10**9, 10**9, 10**9, 10**9, 1, 1), 1)]
+    test_cases += [(((M:=random.randint(1,10**9),N:=random.randint(1,M),(x1:=random.randint(1,M)),(y1:=random.randint(1,N)),(x2:=random.randint(1,M)),(y2:=random.randint(1,N)))),0 if (x1, y1) == (x2, y2) else -1 if (x1 + y1) % 2 != (x2 + y2) % 2 else 1 if abs(x1 - x2) == abs(y1 - y2) else 2) for _ in range(n-15)]
+    return test_cases
 
-test(10, 1000, get_minimum_move, condition_func_problem_01)
+test(10, 10, min_moves_bishop, condition_func_problem_04)
